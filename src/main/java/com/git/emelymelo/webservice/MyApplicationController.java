@@ -18,8 +18,8 @@ public class MyApplicationController {
     
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String olaMundo() {
-        return "Olá mundo!";
+    public String helloWorld() {
+        return "Hello World";
     }
     
 }
