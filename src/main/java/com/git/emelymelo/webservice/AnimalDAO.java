@@ -5,7 +5,7 @@
  */
 package com.git.emelymelo.webservice;
 
-import java.util.HashMap;
+import java.util.HashMap; //mapeamento de objeto no modelo chave/valor
 import java.util.Map;
 
 /**
