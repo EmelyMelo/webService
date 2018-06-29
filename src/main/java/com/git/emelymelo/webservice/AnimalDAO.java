@@ -5,17 +5,25 @@
  */
 package com.git.emelymelo.webservice;
 
-import java.util.HashMap; //mapeamento de objeto no modelo chave/valor
-import java.util.Map;
-
+import java.util.ArrayList;
 /**
  *
  * @author Emely Melo
  */
 public class AnimalDAO {
      private static AnimalDAO instance;
-    private final Map<String,Animal> animais = new HashMap<>();
-    
+     static private ArrayList<Animal> animais;
+     static int id;
+     
+     private AnimalDAO(){
+         id = 1;
+         this.animais = new ArrayList<Animal>();
+         Animal a1 =  new Animal("cachorro", "bolinha");
+         salvar(a1);
+         Animal a2 =  new Animal("gato", "pelinho");
+         salvar(a2);
+     }
+    //só pode instanciar uma vez
     public static AnimalDAO getInstance(){
         if(instance==null){
             instance=new AnimalDAO();
@@ -23,26 +31,27 @@ public class AnimalDAO {
         return instance;
     }
     
-    public boolean criar(Animal a){
-        if(animais.isEmpty()){
-            this.animais.put("0", a);
-        }else{
-         int count = this.animais.size();
-         this.animais.put(Integer.toString(count),a);
-        }
-        return true;
+    //salva o animal no array mudando seu id
+    public boolean salvar(Animal a){
+        a.id = id;
+        id++;
+        return this.animais.add(a);
     }
     
-    public Animal listar(String id){
-        return this.animais.get(id);
+    public ArrayList<Animal> listar(){
+        return this.animais;
     }
-    
+       
     public boolean atualizar(String id, Animal a){
-        this.animais.put(id,a);
-        return true;
+        for(int i=0; i<this.animais.size(); i++){
+            if(this.animais.get(i).id == a.id)
+                this.animais.set(i,a);
+                return true;
+        }
+        return false;
     }
     
-    public boolean remover(String id){
+    public boolean remover(int id){
         this.animais.remove(id);
         return true;
     }

@@ -16,45 +16,46 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * @author Emely Melo
+ * @author Emely Melo   
  */
 @Path("meuwebservice")
 public class MyApplicationController {
-    
-    static AnimalDAO animalDAO;
-    
+        
     @GET
-    @Path("criar") 
-    public Response create(@QueryParam("nome") String nome, 
-                           @QueryParam("idade") int idade){
-        Animal animal = new Animal(nome,idade);
-        animalDAO.getInstance().criar(animal);
-        return Response.status(Response.Status.OK).build();
+    @Path("salvar") 
+    public Response create(@QueryParam("tipoDeAnimal") String tipoDeAnimal, 
+                           @QueryParam("nome") String nome){
+        Animal animal = new Animal(tipoDeAnimal,nome);
+        AnimalDAO.getInstance().salvar(animal);
+        Gson gson = new Gson();
+        return Response.status(Response.Status.OK).entity(gson.toJson(animal)).build();
     }
+   
     
     @GET
     @Path("listar")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response listar(@QueryParam("id") String id){
-        Animal animal = animalDAO.getInstance().listar(id);
+    public String listar(){
         Gson gson = new Gson();
-        return Response.status(Response.Status.OK).entity(gson.toJson(animal)).build();
+        return gson.toJson(AnimalDAO.getInstance().listar());
     }
     
-    @POST
+       
+    @GET
     @Path("atualizar")
     public Response atualizar(@QueryParam("id") String id,
-                           @QueryParam("nome") String nome, 
-                           @QueryParam("idade") int idade){
-        Animal game = new Animal(nome,idade);
-        animalDAO.getInstance().atualizar(id, game);
-        return Response.status(Response.Status.OK).build();
+                           @QueryParam("tipodeanimal") String tipoDeAnimal, 
+                           @QueryParam("nome") String nome){
+        Animal animal = new Animal(tipoDeAnimal,nome);
+        AnimalDAO.getInstance().atualizar(id, animal);
+        Gson gson = new Gson();
+        return Response.status(Response.Status.OK).entity(gson.toJson(animal)).build();    
     }
     
-    @DELETE
+    @GET
     @Path("remover")
-    public Response remover(@QueryParam("id") String id){
-        animalDAO.getInstance().remover(id);
+    public Response remover(@QueryParam("id") int id){
+        AnimalDAO.getInstance().remover(id);
         return Response.status(Response.Status.OK).build();
     }
 
