@@ -31,15 +31,23 @@ public class MyApplicationController {
         return Response.status(Response.Status.OK).entity(gson.toJson(animal)).build();
     }
    
-    
     @GET
     @Path("listar")
     @Produces(MediaType.TEXT_PLAIN)
-    public String listar(){
+    public String listarTodos(){
         Gson gson = new Gson();
-        return gson.toJson(AnimalDAO.getInstance().listar());
+        return gson.toJson(AnimalDAO.getInstance().listarTodos());
     }
     
+    @GET
+    @Path("listarporid")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String listarPorId(@QueryParam("id") int id){
+        Animal animal = new Animal(id);
+        Animal a = AnimalDAO.getInstance().listarPorId(animal);
+        Gson gson = new Gson();
+        return gson.toJson(a);
+    }
        
     @GET
     @Path("atualizar")

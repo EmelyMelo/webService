@@ -38,10 +38,20 @@ public class AnimalDAO {
         return this.animais.add(a);
     }
     
-    public ArrayList<Animal> listar(){
+    public ArrayList<Animal> listarTodos(){
         return this.animais;
     }
        
+    public Animal listarPorId(Animal a){
+        for(int i=0; i<this.animais.size(); i++){
+            if(this.animais.get(i).id == a.id){
+                a = this.animais.get(i);
+                return this.animais.get(i);
+            }
+        }
+        return a;
+    }
+    
     public boolean atualizar(String id, Animal a){
         for(int i=0; i<this.animais.size(); i++){
             if(this.animais.get(i).id == a.id)
