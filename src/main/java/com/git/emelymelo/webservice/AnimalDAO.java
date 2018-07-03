@@ -52,17 +52,27 @@ public class AnimalDAO {
         return a;
     }
     
-    public boolean atualizar(String id, Animal a){
-        for(int i=0; i<this.animais.size(); i++){
-            if(this.animais.get(i).id == a.id)
-                this.animais.set(i,a);
-                return true;
-        }
-        return false;
+    public Animal atualizar(Animal a){
+        int index = pegarIndex(a);
+        animais.set(index,a);
+        return listarPorId(a);
+        
+        
     }
     
-    public boolean remover(int id){
-        this.animais.remove(id);
+    public boolean remover(Animal a){
+        int index = pegarIndex(a);
+        this.animais.remove(index);
         return true;
+    }
+        public int pegarIndex(Animal a){
+    int index = -1;
+    for(int i=0;i<animais.size();i++){
+        if(animais.get(i).id == a.id){
+            index = i;
+        }
+    }
+    return index;
+    
     }
 }

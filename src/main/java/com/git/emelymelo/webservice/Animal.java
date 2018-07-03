@@ -19,6 +19,11 @@ public class Animal {
         this.tipoDeAnimal = tipoDeAnimal;
         this.nome = nome;
     }
+    public Animal(int id, String tipoDeAnimal, String nome){
+        this.id = id;
+        this.tipoDeAnimal = tipoDeAnimal;
+        this.nome = nome;
+    }
     public Animal (int id){ //por cauda do listar pelo id
         this.id = id;
     }
